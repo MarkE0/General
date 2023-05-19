@@ -8,7 +8,7 @@ If not obvious, include details of issue numbers.
 
 ## Change Type
 
-Select the type(s):
+Select the type(s)/task(s):
 
 - [ ] Bug fix
 - [ ] Improvement
