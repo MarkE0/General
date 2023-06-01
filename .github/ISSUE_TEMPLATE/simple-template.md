@@ -7,7 +7,8 @@ assignees: ''
 
 ---
 
-##Issue title / summary
-Details
+## Summary
 
-###Additional Information
+## Details
+
+## Additional Information
