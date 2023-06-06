@@ -2,7 +2,9 @@
 
 Random items not specificaly aligned to any of the other repos, or potentially linked with more than one other repo.
 
-# Mermaid Graph Sample
+
+# Other
+## Mermaid Graph Sample
 ```mermaid
 graph LR;
   A[Commit] --> B[Pull Request];
@@ -11,7 +13,7 @@ graph LR;
   D --> E[Package]
   E --> F[Deploy]
 ```
-# Mermaid Sequence Diagram Sample
+## Mermaid Sequence Diagram Sample
 
 ```mermaid
 sequenceDiagram
