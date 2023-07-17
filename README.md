@@ -7,11 +7,13 @@ Random items not specificaly aligned to any of the other repos, or potentially l
 ## Mermaid Graph Sample
 ```mermaid
 graph LR;
-  A[Commit] --> B[Pull Request];
-  B -- Approval --> C[Build]
-  C --> D[Test]
-  D --> E[Package]
-  E --> F[Deploy]
+  C["Commit(s)"] --> PR[Pull Request];
+  PR --> A[Code Analysis]
+  A  --> B[Build]
+  B  --> T[Test]
+  T  --> P[Package]
+  PR -- Approval --> P
+  P --> D[Deploy]
 ```
 ## Mermaid Sequence Diagram Sample
 
