@@ -7,7 +7,9 @@ Random items not specificaly aligned to any of the other repos, or potentially l
 ## Mermaid Graph Sample
 ```mermaid
 graph LR;
-  C["Commit(s)"] --> PR[Pull Request];
+  C["Commit(s)
+    (feature branch)"] --> PR["Pull Request
+                              (to main branch)"];
   PR --> A[Code Analysis]
   A  --> B[Build]
   B  --> T[Test]
