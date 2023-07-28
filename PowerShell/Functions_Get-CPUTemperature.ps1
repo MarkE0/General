@@ -1,8 +1,9 @@
 ### Checking CPU temperature
-# StackOverflow to get CPU temperature: https://stackoverflow.com/questions/39738494/get-cpu-temperature-in-cmd-power-shell
+# StackOverflow help on WMI and getting CPU temperature:
+#   https://stackoverflow.com/questions/39738494/get-cpu-temperature-in-cmd-power-shell
 # PS5.1 - Admin
 
-function Get-Temperature {
+function Get-CPUTemperature {
     <#
     .SYNOPSIS
         Get the CPU temperature of the current machine.
@@ -15,16 +16,16 @@ function Get-Temperature {
     .PARAMETER LoopSeconds
         The number of seconds to wait between each loop (defaults to 30s).
     .EXAMPLE    
-        Get-Temperature
+        Get-CPUTemperature
         54C || 0C || 43C
     .EXAMPLE
-        Get-Temperature -Loop
+        Get-CPUTemperature -Loop
         20:01:03: 56C || 0C || 43C
         20:01:33: 56C || 0C || 43C
         20:02:03: 56C || 0C || 43C
         Ctrl+C
     .EXAMPLE
-        Get-Temperature -Loop -LoopSeconds 10
+        Get-CPUTemperature -Loop -LoopSeconds 10
         20:02:16: 56C || 0C || 43C
         20:02:26: 55C || 0C || 43C
         20:02:36: 56C || 0C || 43C
