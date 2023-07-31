@@ -19,13 +19,13 @@ function Get-CPUTemperature {
         Get-CPUTemperature
         54C || 0C || 43C
     .EXAMPLE
-        Get-CPUTemperature -Loop
+        $ Get-CPUTemperature -Loop
         20:01:03: 56C || 0C || 43C
         20:01:33: 56C || 0C || 43C
         20:02:03: 56C || 0C || 43C
         Ctrl+C
     .EXAMPLE
-        Get-CPUTemperature -Loop -LoopSeconds 10
+        $ Get-CPUTemperature -Loop -LoopSeconds 10
         20:02:16: 56C || 0C || 43C
         20:02:26: 55C || 0C || 43C
         20:02:36: 56C || 0C || 43C

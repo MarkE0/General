@@ -13,11 +13,11 @@ function Rename-VideoFileSeries {
     .PARAMETER AdditionalLocation
         String. An additional directory where previously moved video files from the same series may be. E.g. a home server.
     .EXAMPLE
-        > Rename-VideoFileSeries -Path "C:\Users\${env:USERNAME}\Videos\MakeMKV" -TitleBase "Home Videos S05 E" -AdditionalLocation "\\HomeServer\Videos\Home Videos\Series 5\"
+        $ Rename-VideoFileSeries -Path "C:\Users\${env:USERNAME}\Videos\MakeMKV" -TitleBase "Home Videos S05 E" -AdditionalLocation "\\HomeServer\Videos\Home Videos\Series 5\"
         17:25:50: Checking for files matching Regex "[A-D][0-9]_t[0-9].*.mkv" in: C:\Users\User\Videos\MakeMKV
         17:25:50: Found item - Performing: Move-Item -Path "C:\Users\User\Videos\MakeMKV\C1_t02.mkv" -Destination "C:\Users\User\Videos\MakeMKV\Home Videos S05 E12.mkv"
     .EXAMPLE
-        > Rename-VideoFileSeries -Path "C:\Users\${env:USERNAME}\Videos\MakeMKV" -TitleBase "Home Videos S05 E" -AdditionalLocation "\\HomeServer\Videos\Home Videos\Series 5\" -Loop
+        $ Rename-VideoFileSeries -Path "C:\Users\${env:USERNAME}\Videos\MakeMKV" -TitleBase "Home Videos S05 E" -AdditionalLocation "\\HomeServer\Videos\Home Videos\Series 5\" -Loop
         17:26:06: Checking for files matching Regex "[A-D][0-9]_t[0-9].*.mkv" in: C:\Users\User\Videos\MakeMKV
         17:26:06: Found item - Performing: Move-Item -Path "C:\Users\User\Videos\MakeMKV\C1_t03.mkv" -Destination "C:\Users\User\Videos\MakeMKV\Home Videos S05 E13.mkv"
         17:26:11: Found item - Performing: Move-Item -Path "C:\Users\User\Videos\MakeMKV\C1_t04.mkv" -Destination "C:\Users\User\Videos\MakeMKV\Home Videos S05 E14.mkv"
@@ -45,6 +45,11 @@ function Rename-VideoFileSeries {
     $SleepNoFilesFound = 30
     $SleepFilesFound   = 5
     $LastWriteSeconds  = -60
+
+    if ($null -eq $Path -or (-not (Test-Path -Path $Path))) {
+        Write-Error "Path not found: $Path"
+        return
+    }
 
     Write-Host "$(Get-Date -Format "HH:mm:ss"): Checking for files matching Regex `"$RipTitleRegex`" in: $Path"
 
