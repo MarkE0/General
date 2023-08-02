@@ -41,7 +41,7 @@ function Rename-VideoFileSeries {
         [switch]$Loop
     )
 
-    $RipTitleRegex     = "[A-D][0-9]_t[0-9].*.mkv" # E.g. "A1_t01.mkv"
+    $RipTitleRegex     = "^[A-D][0-9]_t[0-9].*.mkv" # E.g. "A1_t01.mkv"
     $SleepNoFilesFound = 30
     $SleepFilesFound   = 5
     $LastWriteSeconds  = -60
