@@ -50,6 +50,10 @@ function Rename-VideoFileSeries {
         Write-Error "Path not found: $Path"
         return
     }
+    if ($null -ne $AdditionalLocation -and (-not (Test-Path -Path $AdditionalLocation))) {
+        Write-Warning "AdditionalLocation not found: $AdditionalLocation"
+        $AdditionalLocation = $Path
+    }
 
     Write-Host "$(Get-Date -Format "HH:mm:ss"): Checking for files matching Regex `"$RipTitleRegex`" in: $Path"
 
