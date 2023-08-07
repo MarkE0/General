@@ -54,12 +54,20 @@ function ConvertTo-MP4andTransferToServer {
     $HandBrakeCliExe = "C:\Program Files\HandBrake\HandBrakeCLI\HandBrakeCLI.exe"
 
     # Check that necessary files and folders exist.
-    if ($null -eq $Path -or (-not (Test-Path -Path $Path))) {
+    if ([string]::IsNullOrWhiteSpace($Path)) {
         Write-Error "Path is null or empty."
         return
     }
-    if ($null -eq $Destination -or (-not (Test-Path -Path $Destination))) {
+    if (-not (Test-Path -Path $Path)) {
+        Write-Error "Path does not exist: $Path"
+        return
+    }
+    if ([string]::IsNullOrWhiteSpace($Destination)) {
         Write-Error "Destination is null or empty."
+        return
+    }
+    if (-not (Test-Path -Path $Destination)) {
+        Write-Error "Destination does not exist: $Destination"
         return
     }
     if (-not (Test-Path -Path $HandBrakeCliExe)) {
