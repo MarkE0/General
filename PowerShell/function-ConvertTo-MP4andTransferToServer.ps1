@@ -46,11 +46,18 @@ function ConvertTo-MP4andTransferToServer {
         [string]$Destination,
 
         [Parameter(Mandatory = $false)]
+        [int]$SleepBetweenTasks = 900, # 15 minutes (let CPU cool down)
+
+        [Parameter(Mandatory = $false)]
         [switch]$Loop
     )
+    Write-Debug "$(Get-Date -Format "HH:mm:ss"): Path: $Path"
+    Write-Debug "$(Get-Date -Format "HH:mm:ss"): Destination: $Destination"
+    Write-Debug "$(Get-Date -Format "HH:mm:ss"): SleepBetweenTasks: $SleepBetweenTasks"
+    Write-Debug "$(Get-Date -Format "HH:mm:ss"): Loop: $Loop"
     
-    $PostEncodeSleep = 900 # 15 minutes (let CPU cool down)
-    $NonEncodeSleep  = 30  # 30 seconds
+    # $SleepBetweenTasks  = 900 # 15 minutes (let CPU cool down)
+    $SleepBetweenChecks = 30  # 30 seconds
     $HandBrakeCliExe = "C:\Program Files\HandBrake\HandBrakeCLI\HandBrakeCLI.exe"
 
     # Check that necessary files and folders exist.
@@ -104,15 +111,15 @@ function ConvertTo-MP4andTransferToServer {
             Write-Host ""
 
             if ($Loop) {
-                Write-Host "$(Get-Date -Format "HH:mm:ss"): Start-Sleep -Seconds $PostEncodeSleep (Next kick-off: $(Get-Date -Date (Get-Date).AddSeconds($PostEncodeSleep) -Format "HH:mm:ss"))" -ForegroundColor Green
-                Start-Sleep -Seconds $PostEncodeSleep
+                Write-Host "$(Get-Date -Format "HH:mm:ss"): Start-Sleep -Seconds $SleepBetweenTasks (Next kick-off: $(Get-Date -Date (Get-Date).AddSeconds($SleepBetweenTasks) -Format "HH:mm:ss"))" -ForegroundColor Green
+                Start-Sleep -Seconds $SleepBetweenTasks
                 Write-Host ""
             }
         }
         else {
             if ($Loop) {
-                Write-Debug "$(Get-Date -Format "HH:mm:ss"): No files found, sleeping for $NonEncodeSleep seconds."
-                Start-Sleep -Seconds $NonEncodeSleep
+                Write-Debug "$(Get-Date -Format "HH:mm:ss"): No files found, sleeping for $SleepBetweenChecks seconds."
+                Start-Sleep -Seconds $SleepBetweenChecks
             }
         }
     } while ($Loop)
