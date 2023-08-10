@@ -42,8 +42,8 @@ function Rename-VideoFileSeries {
     )
 
     $RipTitleRegex     = "^[A-D][0-9]_t[0-9].*.mkv" # E.g. "A1_t01.mkv"
-    $SleepNoFilesFound = 30
-    $SleepFilesFound   = 2
+    $SleepNoFilesFound = 30 # Seconds to sleep if no files are found.
+    $SleepFilesFound   = 2  # Seconds to sleep between found files.
     $LastWriteSeconds  = -60
 
     if ($null -eq $Path -or (-not (Test-Path -Path $Path))) {
