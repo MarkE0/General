@@ -74,8 +74,11 @@ function ConvertTo-MP4andTransferToServer {
         return
     }
     if (-not (Test-Path -Path $Destination)) {
-        Write-Error "Destination does not exist: $Destination"
-        return
+        CreateDestinationFolderAsNecessary -Destination $Destination        
+        if (-not (Test-Path -Path $Destination)) {
+            Write-Error "Destination does not exist: $Destination"
+            return
+        }
     }
     if (-not (Test-Path -Path $HandBrakeCliExe)) {
         Write-Error "HandBrake CLI is null or empty."
@@ -123,4 +126,27 @@ function ConvertTo-MP4andTransferToServer {
             }
         }
     } while ($Loop)
+}
+
+function CreateDestinationFolderAsNecessary {
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [string]$Destination
+    )
+    Write-Debug "$(Get-Date -Format "HH:mm:ss"): Destination: $Destination"
+
+    if ([string]::IsNullOrWhiteSpace($Destination)) {
+        Write-Error "Destination is null or empty."
+        return
+    }
+    if (-not (Test-Path -Path $Destination)) {
+        Write-Host "$(Get-Date -Format "HH:mm:ss"): Destination does not exist - Do you wish to create?- $Destination"
+        $Choice = Read-Host "Y/N"
+        if ($Choice -eq "Y") {
+            Write-Host "$(Get-Date -Format "HH:mm:ss"): Creating folder: $Destination" -ForegroundColor Green
+            New-Item -Path $Destination -ItemType Directory
+        }
+        return
+    }
 }
