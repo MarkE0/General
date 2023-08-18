@@ -5,7 +5,7 @@ function ConvertTo-MP4andTransferToServer {
     .SYNOPSIS
         Convert MKV to MP4 and transfer to server.
     .DESCRIPTION
-        Convert MKV to MP4 and transfer to server.
+        Convert MKV to MP4 and transfer to a new location.
         Requires HandBrake CLI to be installed.
           Reference: https://handbrake.fr/docs/en/1.6.0/cli/command-line-reference.html
         Progress bar on copy uses Bits Transfer module.
