@@ -16,6 +16,7 @@ graph LR;
   T  --> P[Package]
   PR -- Approval --> P
   P --> D[Deploy]
+  D --> C
 ```
 ## Mermaid Sequence Diagram Sample
 
