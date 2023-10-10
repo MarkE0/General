@@ -7,16 +7,18 @@ Items not specificaly aligned to any of the other repos, or potentially linked w
 ## Mermaid Graph Sample
 ```mermaid
 graph LR;
-  C["Commit(s)
-    (feature branch)"] --> PR["Pull Request
-                              (to main branch)"];
-  PR --> A[Code Analysis]
-  A  --> B[Build]
-  B  --> T[Test]
+  F[Feature\nRequest] --> C["Feature Commit(s)\n(feature branch)"]
+  C --> PR["Pull Request\n(to main branch)"];
+  PR --> A[Code\nAnalysis]
+  A  --> B[PR\nBuild]
+  B  --> T[Unit\nTest]
   T  --> P[Package]
   PR -- Approval --> P
-  P --> D[Deploy]
-  D --> C
+  P --> UAT[Deploy\nUAT]
+  UAT --MarkTested--> P
+  P --Tested--> Rel[Deploy\nProd]
+  Rel --> Mon[Operate &\nMonitor]
+  Mon --> F
 ```
 ## Mermaid Sequence Diagram Sample
 
