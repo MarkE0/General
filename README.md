@@ -8,15 +8,15 @@ Items not specificaly aligned to any of the other repos, or potentially linked w
 ```mermaid
 graph LR;
   F[Feature\nRequest] --> C["Feature Commit(s)\n(feature branch)"]
-  C --> PR["Pull Request\n(to main branch)"];
-  PR --> A[Code\nAnalysis]
-  A  --> B[PR\nBuild]
-  B  --> T[Unit\nTest]
-  T  --> P[Package]
-  PR -- Approval --> P
-  P --> UAT[Deploy\nUAT]
-  UAT --MarkTested--> P
-  P --Tested--> Rel[Deploy\nProd]
+  C  --> PR["Pull Request\n(to main branch)"];
+  PR --> ABT[Code Analysis\nPR Build\nUnit Test]
+  ABT  --> M[Merge]
+  PR -- Approval --> M
+  M  --> B[Build]
+  B  --> P[Package]
+  P  --> UAT[Deploy\nUAT]
+  UAT -- Mark Tested --> P
+  P  -- Tested --> Rel[Deploy\nProd]
   Rel --> Mon[Operate &\nMonitor]
   Mon --> F
 ```
