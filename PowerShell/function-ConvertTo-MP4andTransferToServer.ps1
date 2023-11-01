@@ -3,9 +3,9 @@ Import-Module -Name BitsTransfer
 function ConvertTo-MP4andTransferToServer {
     <#
     .SYNOPSIS
-        Convert MKV to MP4 and transfer to server.
+        Convert large MKV to MP4 and transfer to server.
     .DESCRIPTION
-        Convert MKV to MP4 and transfer to a new location.
+        Convert large MKV to MP4 and transfer to a new location.
         Requires HandBrake CLI to be installed.
           Reference: https://handbrake.fr/docs/en/1.6.0/cli/command-line-reference.html
         Progress bar on copy uses Bits Transfer module.
@@ -94,8 +94,8 @@ function ConvertTo-MP4andTransferToServer {
 
         if ($null -ne $ItemTitle) {
             Write-Host "$(Get-Date -Format "HH:mm:ss"): TITLE: $ItemTitle" -ForegroundColor Green
-            Write-Host "& $HandBrakeCLIExe -i $ItemFullName -o ${ItemDirectoryName}\${ItemTitle}.mp4 --preset `"Fast 1080p30`"" -ForegroundColor Green
-            & $HandBrakeCLIExe -i $ItemFullName -o ${ItemDirectoryName}\${ItemTitle}.mp4 --preset "Fast 1080p30"
+            Write-Host "& $HandBrakeCLIExe -i $ItemFullName -o ${ItemDirectoryName}\${ItemTitle}.mp4 --preset `"Fast 1080p30`" --subtitle-lang-list `"eng`" --subtitle-burned=`"none`" --subtitle-default=`"none`" --subname=`"English`"" -ForegroundColor Green
+            & $HandBrakeCLIExe -i $ItemFullName -o ${ItemDirectoryName}\${ItemTitle}.mp4 --preset "Fast 1080p30" --subtitle-lang-list "eng" --subtitle-burned="none" --subtitle-default="none" --subname="English"
             if (-not (Test-Path -Path ${ItemDirectoryName}\${ItemTitle}.mp4)) {
                 Write-Error "Failed to convert MKV to MP4. Exiting."
                 return
