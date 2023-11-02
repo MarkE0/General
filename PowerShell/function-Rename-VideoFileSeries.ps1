@@ -10,14 +10,14 @@ function Rename-VideoFileSeries {
         String. The path to the directory containing the video files.
     .PARAMETER TitleBase
         String. The base title to use for the video files. E.g. "Home Videos S04 E".
-    .PARAMETER AdditionalLocation
+    .PARAMETER ReferenceLocation
         String. An additional directory where previously moved video files from the same series may be. E.g. a home server.
     .EXAMPLE
-        $ Rename-VideoFileSeries -Path "C:\Users\${env:USERNAME}\Videos\MakeMKV" -TitleBase "Home Videos S05 E" -AdditionalLocation "\\HomeServer\Videos\Home Videos\Series 5\"
+        $ Rename-VideoFileSeries -Path "C:\Users\${env:USERNAME}\Videos\MakeMKV" -TitleBase "Home Videos S05 E" -ReferenceLocation "\\HomeServer\Videos\Home Videos\Series 5\"
         17:25:50: Checking for files matching Regex "[A-D][0-9]_t[0-9].*.mkv" in: C:\Users\User\Videos\MakeMKV
         17:25:50: Found item - Performing: Move-Item -Path "C:\Users\User\Videos\MakeMKV\C1_t02.mkv" -Destination "C:\Users\User\Videos\MakeMKV\Home Videos S05 E12.mkv"
     .EXAMPLE
-        $ Rename-VideoFileSeries -Path "C:\Users\${env:USERNAME}\Videos\MakeMKV" -TitleBase "Home Videos S05 E" -AdditionalLocation "\\HomeServer\Videos\Home Videos\Series 5\" -Loop
+        $ Rename-VideoFileSeries -Path "C:\Users\${env:USERNAME}\Videos\MakeMKV" -TitleBase "Home Videos S05 E" -ReferenceLocation "\\HomeServer\Videos\Home Videos\Series 5\" -Loop
         17:26:06: Checking for files matching Regex "[A-D][0-9]_t[0-9].*.mkv" in: C:\Users\User\Videos\MakeMKV
         17:26:06: Found item - Performing: Move-Item -Path "C:\Users\User\Videos\MakeMKV\C1_t03.mkv" -Destination "C:\Users\User\Videos\MakeMKV\Home Videos S05 E13.mkv"
         17:26:11: Found item - Performing: Move-Item -Path "C:\Users\User\Videos\MakeMKV\C1_t04.mkv" -Destination "C:\Users\User\Videos\MakeMKV\Home Videos S05 E14.mkv"
@@ -35,7 +35,7 @@ function Rename-VideoFileSeries {
 
         [Parameter(Mandatory=$false,Position=2)]
         [ValidateNotNullOrEmpty()]
-        [string]$AdditionalLocation,
+        [string]$ReferenceLocation,
 
         [Parameter(Mandatory=$false)]
         [switch]$Loop
@@ -50,9 +50,9 @@ function Rename-VideoFileSeries {
         Write-Error "Path not found: $Path"
         return
     }
-    if ($null -ne $AdditionalLocation -and (-not (Test-Path -Path $AdditionalLocation))) {
-        Write-Warning "AdditionalLocation not found: $AdditionalLocation"
-        $AdditionalLocation = $Path
+    if ($null -ne $ReferenceLocation -and (-not (Test-Path -Path $ReferenceLocation))) {
+        Write-Warning "ReferenceLocation not found: $ReferenceLocation"
+        $ReferenceLocation = $Path
     }
 
     Write-Host "$(Get-Date -Format "HH:mm:ss"): Checking for files matching Regex `"$RipTitleRegex`" in: $Path"
@@ -60,7 +60,7 @@ function Rename-VideoFileSeries {
     do {
         Write-Debug "Start loop: $(Get-Date -Format "HH:mm:ss")"
         # Get the latest item that has been renamed as per the TitleBase format, or set a base name to start with.
-        $LatestTitle = Get-ChildItem -Path $Path,$AdditionalLocation -Filter "${TitleBase}*.m*" | Sort-Object -Property BaseName | Select-Object -Last 1 | Select-Object -ExpandProperty BaseName
+        $LatestTitle = Get-ChildItem -Path $Path,$ReferenceLocation -Filter "${TitleBase}*.m*" | Sort-Object -Property BaseName | Select-Object -Last 1 | Select-Object -ExpandProperty BaseName
         Write-Debug "LatestTitle: `"$LatestTitle`""
         if ($null -eq $LatestTitle) {
             $LatestTitle = $TitleBase + "00"
