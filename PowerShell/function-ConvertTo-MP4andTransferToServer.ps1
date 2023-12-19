@@ -59,6 +59,7 @@ function ConvertTo-MP4andTransferToServer {
     # $SleepBetweenTasks  = 900 # 15 minutes (let CPU cool down)
     $SleepBetweenChecks = 30  # 30 seconds
     $HandBrakeCliExe = "C:\Program Files\HandBrake\HandBrakeCLI\HandBrakeCLI.exe"
+    #TODO: Use MKV instead of MP4..?
 
     # Check that necessary files and folders exist.
     if ([string]::IsNullOrWhiteSpace($Path)) {
@@ -97,12 +98,12 @@ function ConvertTo-MP4andTransferToServer {
             Write-Host "& $HandBrakeCLIExe -i $ItemFullName -o ${ItemDirectoryName}\${ItemTitle}.mp4 --preset `"Fast 1080p30`" --subtitle-lang-list `"eng`" --subtitle-burned=`"none`" --subtitle-default=`"none`" --subname=`"English`"" -ForegroundColor Green
             & $HandBrakeCLIExe -i $ItemFullName -o ${ItemDirectoryName}\${ItemTitle}.mp4 --preset "Fast 1080p30" --subtitle-lang-list "eng" --subtitle-burned="none" --subtitle-default="none" --subname="English"
             if (-not (Test-Path -Path ${ItemDirectoryName}\${ItemTitle}.mp4)) {
-                Write-Error "Failed to convert MKV to MP4. Exiting."
+                Write-Error "Failed to convert file. Exiting."
                 return
             }
             Write-Host ""
 
-            Write-Host "$(Get-Date -Format "HH:mm:ss"): Moving original MKV to Done: $ItemFullName" -ForegroundColor Green # TODO: Delete original MKV file instead.
+            Write-Host "$(Get-Date -Format "HH:mm:ss"): Moving original file to Done: $ItemFullName" -ForegroundColor Green # TODO: Delete original MKV file instead.
             Move-Item -Path $ItemFullName -Destination $ItemDoneDirectory
             Write-Host ""
 
