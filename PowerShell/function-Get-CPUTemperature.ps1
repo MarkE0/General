@@ -3,6 +3,8 @@
 #   https://stackoverflow.com/questions/39738494/get-cpu-temperature-in-cmd-power-shell
 # PS5.1 - Admin
 
+# [To be] Sent to PSToolsByMEP*\PSToolsByMEP.psm1 or appropriate other file
+
 function Get-CPUTemperature {
     <#
     .SYNOPSIS
