@@ -1,9 +1,20 @@
-# Accept input parameters for URL, sleep time, and update counter
+[CmdletBinding()]
 param(
-    [string]$Url = "https://arseblog.live/liveblog/",
-    [int]$CheckLoopSeconds = 1,
-    [int]$UpdatesReadOutCount = 0,    # Start at 0 to read all
-    [int]$ExitCountdown = 30
+    [Parameter(Mandatory=$false)]
+    [string]
+    $Url = "https://arseblog.live/liveblog/",
+
+    [Parameter(Mandatory=$false)]
+    [int]
+    $CheckLoopSeconds = 1,
+
+    [Parameter(Mandatory=$false)]
+    [int]
+    $UpdatesReadOutCount = 0,    # Start at 0 to read all
+
+    [Parameter(Mandatory=$false)]
+    [int]
+    $ExitCountdown = 30
 )
 
 # ========== SET UP ==========
