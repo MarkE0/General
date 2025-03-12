@@ -52,7 +52,7 @@ while ($ExitCountdown -gt 0) {
             if ($UpdateText -ne "") {
                 # Fix pronunciations
                 $UpdatedSpoken = $UpdateText
-                $UpdatedSpoken = $UpdatedSpoken -replace "Patreon","Paitreeon" -replace "\bFT\b","Full time" -replace "fk","Free kick" -replace 'Oo[o]+h',"Woah" -replace 'Go[oa]+al',"Goal"
+                $UpdatedSpoken = $UpdatedSpoken -replace "Patreon","Paitreeon" -replace "\bFT\b","Full time" -replace "fk","Free kick" -replace 'Oo[o]+h',"Woah" -replace 'Go[oa]+al',"Goal" -replace "lb","left back"
                 $UpdatedSpoken = $UpdatedSpoken -replace "Mikel","Mickel" -replace "Arteta","Artetuh" -replace "Arsenal","Arsnal"
                 $UpdatedSpoken = $UpdatedSpoken -replace "Nwaneri","Nwan-airy" -replace "Gabriel","Gab-ri-ell" -replace "Raya","Rye-uh" -replace "Calafiori","Cal-afewer-ray" -replace "Jorginho","Jor-gene-yo" -replace "Saka","Sack-uh" -replace "Havertz","Hav-urtz"
                 $UpdatedSpoken = $UpdatedSpoken -replace "Kiwior","Key-vee-or" -replace "Zinchenko","Zin-chenko" -replace "Saliba","Sahleeba"
