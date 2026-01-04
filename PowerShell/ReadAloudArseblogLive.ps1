@@ -20,18 +20,23 @@ param(
 # ========== SET UP ==========
 # Start the Firefox driver
 $Driver = Start-SeFirefox #-Headless
+Write-Verbose "[$(Get-Date -Format "HH:mm:ss")] Started SeDriver (FireFox)."
 
 # Apply the URL
 Enter-SeUrl -Url $Url -Driver $Driver
 # Enter-SeUrl -Url "https://arseblog.live/liveblog/67b05a163b249c0008f449d3" -Driver $Driver
+Write-Verbose "[$(Get-Date -Format "HH:mm:ss")] Applied URL: $Url"
 
 # Add-Type -AssemblyName System.Speech
 $Speech = New-Object System.Speech.Synthesis.SpeechSynthesizer
 # $Speech.SelectVoice("Microsoft Zira Desktop")
 # $Speech.Speak("This is a test.")
+Write-Verbose "[$(Get-Date -Format "HH:mm:ss")] Speech Synthesizer initialized."
 
 # Get the live updates element
-$LiveBlogUpdateList = Get-SeElement -Selection "liveblogUpdateList" -By ClassName -Target $Driver
+$UpdatesElementName = "page_updates__yczSP" # "liveblogUpdateList"
+$LiveBlogUpdateList = Get-SeElement -Selection $UpdatesElementName -By ClassName -Target $Driver
+Write-Verbose "[$(Get-Date -Format "HH:mm:ss")] Retrieved live blog update list element (`"$UpdatesElementName`")."
 
 $ExitCountdownStarted = $false
 
@@ -43,6 +48,7 @@ while ($ExitCountdown -gt 0) {
     # Write-Host "    DEBUG: ======================`n`t`t$($LiveBlogUpdatesArray | Select-Object -First 2 | Join-String -Separator "`n`t`t")`n           ======================"
 
     $LatestUpdatesCount = $LiveBlogUpdatesArray.Count
+    Write-Verbose "[$(Get-Date -Format "HH:mm:ss")] Retrieved live blog updates. Number of posts found: $LatestUpdatesCount"
     # Write-Host "    DEBUG: UpdateCountMax($LatestUpdatesCount) -gt UpdateCounter($UpdatesReadOutCount)"
     if($LatestUpdatesCount -gt $UpdatesReadOutCount) {
         $ReadingUpdatesPosition = $LatestUpdatesCount - $UpdatesReadOutCount -1 # Subtract 1 to get the correct index since it starts at 0
@@ -55,7 +61,7 @@ while ($ExitCountdown -gt 0) {
                 $UpdatedSpoken = $UpdatedSpoken -replace "Patreon","Paitreeon" -replace "\bFT\b","Full time" -replace "fk","Free kick" -replace 'Oo[o]+h',"Woah" -replace 'Go[oa]+al',"Goal" -replace "lb","left back"
                 $UpdatedSpoken = $UpdatedSpoken -replace "Mikel","Mickel" -replace "Arteta","Artetuh" -replace "Arsenal","Arsnal"
                 $UpdatedSpoken = $UpdatedSpoken -replace "Nwaneri","Nwan-airy" -replace "Gabriel","Gab-ri-ell" -replace "Raya","Rye-uh" -replace "Calafiori","Cal-afewer-ray" -replace "Jorginho","Jor-gene-yo" -replace "Saka","Sack-uh" -replace "Havertz","Hav-urtz"
-                $UpdatedSpoken = $UpdatedSpoken -replace "Kiwior","Key-vee-or" -replace "Zinchenko","Zin-chenko" -replace "Saliba","Sahleeba"
+                $UpdatedSpoken = $UpdatedSpoken -replace "Kiwior","Key-vee-or" -replace "Zinchenko","Zin-chenko" -replace "Saliba","Sahleeba" -replace "Jesus","Jay-soos" -replace "Eze","Ezz-ah"
                 $UpdatedSpoken = $UpdatedSpoken -replace "\bOde\b", "Odegaard" -replace "\bMLS\b", "Lewis-Skelly" -replace "\bTross\b","Trossard" -replace "\bKT\b", "Kieran Tierney" -replace "Zinky","Zin-chenko"
    
                 # Omit the time element if it matches the last one
