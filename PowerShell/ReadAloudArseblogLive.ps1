@@ -58,11 +58,15 @@ while ($ExitCountdown -gt 0) {
             if ($UpdateText -ne "") {
                 # Fix pronunciations
                 $UpdatedSpoken = $UpdateText
-                $UpdatedSpoken = $UpdatedSpoken -replace "Patreon","Paitreeon" -replace "\bFT\b","Full time" -replace "fk","Free kick" -replace 'Oo[o]+h',"Woah" -replace 'Go[oa]+al',"Goal" -replace "lb","left back"
+                $UpdatedSpoken = $UpdatedSpoken -replace "Patreon","Paitreeon" -replace "\bFT\b","Full time" -replace "fk","Free kick" -replace 'Oo[o]+h',"Woah" -replace 'Go[oa]+al',"Goal" -replace "lb","left back" -replace "tbh","to be honest"
                 $UpdatedSpoken = $UpdatedSpoken -replace "Mikel","Mickel" -replace "Arteta","Artetuh" -replace "Arsenal","Arsnal"
-                $UpdatedSpoken = $UpdatedSpoken -replace "Nwaneri","Nwan-airy" -replace "Gabriel","Gab-ri-ell" -replace "Raya","Rye-uh" -replace "Calafiori","Cal-afewer-ray" -replace "Jorginho","Jor-gene-yo" -replace "Saka","Sack-uh" -replace "Havertz","Hav-urtz"
-                $UpdatedSpoken = $UpdatedSpoken -replace "Kiwior","Key-vee-or" -replace "Zinchenko","Zin-chenko" -replace "Saliba","Sahleeba" -replace "Jesus","Jay-soos" -replace "Eze","Ezz-ah"
-                $UpdatedSpoken = $UpdatedSpoken -replace "\bOde\b", "Odegaard" -replace "\bMLS\b", "Lewis-Skelly" -replace "\bTross\b","Trossard" -replace "\bKT\b", "Kieran Tierney" -replace "Zinky","Zin-chenko"
+                $UpdatedSpoken = $UpdatedSpoken -replace "Nwaneri","Nwan-airy" -replace "Gabriel","Gab-ri-ell" -replace "Raya","Rye-uh" -replace "Calafiori","Cal-afewer-ray" -replace "Saka","Sack-uh" -replace "Havertz","Hav-urtz"
+                $UpdatedSpoken = $UpdatedSpoken -replace "Saliba","Sahleeba" -replace "Jesus","Jay-soos" -replace "Eze","Ezz-ah" -replace "Gyokeres","Yockeress" -replace "Madueke","Madu-ay-kay"
+                $UpdatedSpoken = $UpdatedSpoken -replace "Kiwior","Key-vee-or" -replace "Zinchenko","Zin-chenko" -replace "Zinky","Zin-chenko" -replace "Jorginho","Jor-gene-yo" 
+                $UpdatedSpoken = $UpdatedSpoken -replace "\bOde\b", "Odegaard" -replace "\bMLS\b", "Lewis-Skelly" -replace "\bTross\b","Trossard"
+                $UpdatedSpoken = $UpdatedSpoken -replace 'https://[^ ]+\b', "URL provided."
+                $UpdatedSpoken = $UpdatedSpoken -replace '\b([0-9])-0\b','$1 nil' -replace '([0-9])-([0-9])', '$1 $2'
+                Write-Verbose "[$(Get-Date -Format "HH:mm:ss")] Replaced to: $UpdatedSpoken"
    
                 # Omit the time element if it matches the last one
                 $TimeValue = ($UpdatedSpoken -split " :: ")[0]
